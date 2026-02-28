@@ -44,17 +44,14 @@ function removeExistingAlbumNameElement() {
 }
 
 function removeElementById(id: string) {
-    console.log("[APEEK-TEST]: Searching for element to remove: ", id);
     const element = document.getElementById(id);
     if (element) {
-        console.log("[APEEK-TEST]: Element found: ", element);
         element.remove();
     }
 }
 
 async function createAlbumNameElement(albumName) {
     // AlbumName Element
-    console.log("[APEEK-TEST]: creating albumName Element")
     const container = createDivElement('albumName');
 
     // Bullet
@@ -92,14 +89,11 @@ function createAnchorElement(textContent, uri) {
 async function applyStylesFromSelector(albumNameElement) {
     const selector = localStorage.getItem("position");
     if (!selector) return;
-    console.log("[APEEK-TEST]: selector found: ", selector);
 
     const targetedElement = await waitForElement(`${selector} a`);
-    console.log("[APEEK-TEST]: targeted Element found: ", targetedElement.textContent);
 
 
     const targetedStyles = window.getComputedStyle(targetedElement);
-    console.log("[APEEK-TEST]: Set style for element")
     setElementStyles(albumNameElement, targetedStyles);
 }
 
