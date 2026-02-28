@@ -56,7 +56,8 @@ async function createAlbumNameElement(albumName) {
     console.log("[APEEK-TEST]: creating albumName Element")
     const albumNameElement = createDivElement('albumName');
 
-    const nameElement = createAnchorElement(albumName);
+    const albumURI = Spicetify.Player.data.item.album.uri;
+    const nameElement = createAnchorElement(albumName, albumURI);
     albumNameElement.appendChild(nameElement);
 
     await applyStylesFromSelector(albumNameElement)
@@ -84,10 +85,15 @@ function createDivElement(id) {
     return divElement;
 }
 
-function createAnchorElement(textContent) {
+function createAnchorElement(textContent, uri) {
     const anchorElement = document.createElement("a");
     anchorElement.textContent = '• ' + textContent;
     anchorElement.style.cursor = 'pointer';
+
+    if (uri) {
+        anchorElement.href = uri;
+        return anchorElement
+    }
     return anchorElement;
 }
 
