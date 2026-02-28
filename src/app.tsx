@@ -53,16 +53,40 @@ function removeElementById(id: string) {
 }
 
 async function createAlbumNameElement(albumName) {
+    // AlbumName Element
     console.log("[APEEK-TEST]: creating albumName Element")
-    const albumNameElement = createDivElement('albumName');
+    const container = createDivElement('albumName');
 
+    // Bullet
+    const bullet = document.createElement("span");
+    bullet.textContent = '• ';
+    container.appendChild(bullet)
+
+    // Album URI
     const albumURI = Spicetify.Player.data.item.album.uri;
-    const nameElement = createAnchorElement(albumName, albumURI);
-    albumNameElement.appendChild(nameElement);
+    const albumNameElement = createAnchorElement(albumName, albumURI);
+    container.appendChild(albumNameElement);
 
-    await applyStylesFromSelector(albumNameElement)
+    await applyStylesFromSelector(container)
 
-    return albumNameElement;
+    return container;
+}
+
+function createDivElement(id) {
+    const divElement = document.createElement("div");
+    divElement.id = id;
+    return divElement;
+}
+
+function createAnchorElement(textContent, uri) {
+    const anchorElement = document.createElement(uri ? "a" : "span");
+    anchorElement.textContent = textContent;
+
+    if (uri) {
+        anchorElement.href = uri;
+        anchorElement.style.cursor = 'pointer';
+    }
+    return anchorElement;
 }
 
 async function applyStylesFromSelector(albumNameElement) {
@@ -79,23 +103,6 @@ async function applyStylesFromSelector(albumNameElement) {
     setElementStyles(albumNameElement, targetedStyles);
 }
 
-function createDivElement(id) {
-    const divElement = document.createElement("div");
-    divElement.id = id;
-    return divElement;
-}
-
-function createAnchorElement(textContent, uri) {
-    const anchorElement = document.createElement("a");
-    anchorElement.textContent = '• ' + textContent;
-    anchorElement.style.cursor = 'pointer';
-
-    if (uri) {
-        anchorElement.href = uri;
-        return anchorElement
-    }
-    return anchorElement;
-}
 
 function setElementStyles(element, styles) {
     element.style.fontSize = styles.fontSize;
