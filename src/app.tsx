@@ -101,7 +101,7 @@ async function applyStylesFromSelector(albumNameElement) {
 function setElementStyles(element, styles) {
     element.style.fontSize = styles.fontSize;
     element.style.fontWeight = styles.fontWeight;
-    element.style.minWidth = "75px";
+    element.style.minWidth = "15px";
 }
 
 function albumNameCSS() {
